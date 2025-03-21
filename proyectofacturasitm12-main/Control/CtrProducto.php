@@ -1,4 +1,6 @@
 <?php
+require_once '../Modelo/Producto.php'; // Asegúrese de que la clase Producto esté incluida
+
 class CtrProducto {
     public function crearProducto(string $codigo, string $nombre, int $stock, float $valorUnitario): Producto {
         return new Producto($codigo, $nombre, $stock, $valorUnitario);
@@ -12,4 +14,6 @@ class CtrProducto {
         return $producto->getValorUnitario();
     }
 }
+// Asegúrese de que el guión termine correctamente.
 ?>
+

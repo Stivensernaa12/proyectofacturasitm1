@@ -1,15 +1,14 @@
-<?php 
-class CtrCliente {
-    public function crearCliente(string $codigo, string $email, string $nombre, string $telefono, float $credito): Cliente {
-        return new Cliente($codigo, $email, $nombre, $telefono, $credito);
-    }
+<?php
+    require_once '/c:/xampp/htdocs/proyectofacturasitm1/proyectofacturasitm12-main/Control/CtrCliente.php';
+    require_once '/c:/xampp/htdocs/proyectofacturasitm1/proyectofacturasitm12-main/Model/Cliente.php';
 
-    public function actualizarCredito(Cliente $cliente, float $nuevoCredito): void {
-        $cliente->setCredito($nuevoCredito);
-    }
+    $ctrCliente = new CtrCliente();
+    $cliente = $ctrCliente->crearCliente('001', 'correo@example.com', 'Juan Pérez', '123456789', 1000.0);
 
-    public function obtenerCredito(Cliente $cliente): float {
-        return $cliente->getCredito();
-    }
-}
-?>
+    echo 'Crédito inicial: ' . $ctrCliente->obtenerCredito($cliente) . PHP_EOL;
+
+    $ctrCliente->actualizarCredito($cliente, 2000.0);
+    echo 'Crédito actualizado: ' . $ctrCliente->obtenerCredito($cliente) . PHP_EOL;
+    ?>
+   
+

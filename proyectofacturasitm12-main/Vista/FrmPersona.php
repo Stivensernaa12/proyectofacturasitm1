@@ -1,14 +1,16 @@
 <?php
+require_once '../Control/CtrPersona.php'; // Ajuste la ruta según sea necesario
+
 class FrmPersona {
-    private CtrPersona $controlador;
+    private CtrPersona $control;
 
     public function __construct() {
-        $this->controlador = new CtrPersona();
+        $this->control = new CtrPersona();
     }
 
     public function ingresar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $persona = $this->controlador->crearPersona($_POST['codigo'], $_POST['email'], $_POST['nombre'], $_POST['telefono']);
+            $persona = $this->control->crearPersona($_POST['codigo'], $_POST['email'], $_POST['nombre'], $_POST['telefono']);
             echo "Persona creada: " . $persona->getNombre();
         }
     }

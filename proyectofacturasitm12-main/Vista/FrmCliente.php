@@ -1,7 +1,7 @@
 <?php
-require_once '../Controlador/CtrPersona.php'; // Incluir el controlador
+require_once '../Control/CtrPersona.php'; // Inluir el control
 
-$controlador = new CtrPersona();
+$control = new CtrPersona();
 
 // Verificar si se envió un formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,26 +11,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $nombre = trim($_POST["nombre"]);
                 $apellido = trim($_POST["apellido"]);
                 $email = trim($_POST["email"]);
-                $controlador->ingresar($nombre, $apellido, $email);
+                $control->ingresar($nombre, $apellido, $email);
                 break;
 
             case "eliminar":
                 $id = intval($_POST["id"]);
-                $controlador->eliminar($id);
+                $control->eliminar($id);
                 break;
         }
     }
 }
 
 // Obtener la lista de personas
-$personas = $controlador->listar();
+$personas = $control->listar();
 
-// Mostrar resultados en formato simple
-echo "Lista de Personas:\n";
+// Recorrer la lista de personas y mostrarlas
 foreach ($personas as $persona) {
     echo "ID: " . $persona['id'] . " | ";
     echo "Nombre: " . $persona['nombre'] . " | ";
     echo "Apellido: " . $persona['apellido'] . " | ";
-    echo "Email: " . $persona['email'] . "\n";
+    echo "Email: " . $persona['email'] . "<br>";
 }
+// Cerrar la etiqueta PHP correctamente
 ?>

@@ -1,15 +1,24 @@
 <?php
-class CtrPersona {
-    public function crearPersona(string $codigo, string $email, string $nombre, string $telefono): Persona {
-        return new Persona($codigo, $email, $nombre, $telefono);
-    }
+require_once 'Control/CtrPersona.php';
 
-    public function actualizarEmail(Persona $persona, string $nuevoEmail): void {
-        $persona->setEmail($nuevoEmail);
-    }
+class Persona {
+	private $id;
+	private $email;
+	private $nombre;
+	private $telefono;
 
-    public function obtenerNombre(Persona $persona): string {
-        return $persona->getNombre();
-    }
+	public function __construct($id, $email, $nombre, $telefono) {
+		$this->id = $id;
+		$this->email = $email;
+		$this->nombre = $nombre;
+		$this->telefono = $telefono;
+	}
+
+	public function getNombre() {
+		return $this->nombre;
+	}
 }
+
+$persona = new Persona('001', 'correo@example.com', 'Juan Pérez', '123456789');
+echo $persona->getNombre();
 ?>

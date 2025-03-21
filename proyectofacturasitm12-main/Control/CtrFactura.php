@@ -1,15 +1,21 @@
 <?php
-class CtrFactura {
-    public function crearFactura(DateTime $fecha, int $numero, float $total): Factura {
-        return new Factura($fecha, $numero, $total);
+class Factura {
+    private DateTime $fecha;
+    private int $numero;
+    private float $total;
+
+    public function __construct(DateTime $fecha, int $numero, float $total) {
+        $this->fecha = $fecha;
+        $this->numero = $numero;
+        $this->total = $total;
     }
 
-    public function actualizarTotal(Factura $factura, float $nuevoTotal): void {
-        $factura->setTotal($nuevoTotal);
+    public function setTotal(float $total): void {
+        $this->total = $total;
     }
 
-    public function obtenerNumero(Factura $factura): int {
-        return $factura->getNumero();
+    public function getNumero(): int {
+        return $this->numero;
     }
 }
 ?>

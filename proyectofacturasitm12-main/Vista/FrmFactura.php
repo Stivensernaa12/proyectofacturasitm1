@@ -1,14 +1,16 @@
 <?php
+require_once '../Control/CtrFactura.php'; // Ajuste la ruta según sea necesario
+
 class FrmFactura {
-    private CtrFactura $controlador;
+    private CtrFactura $control;
 
     public function __construct() {
-        $this->controlador = new CtrFactura();
+        $this->control = new CtrFactura();
     }
 
     public function guardar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $factura = $this->controlador->crearFactura(new DateTime($_POST['fecha']), $_POST['numero'], $_POST['total']);
+            $factura = $this->control->crearFactura(new DateTime($_POST['fecha']), $_POST['numero'], $_POST['total']);
             echo "Factura creada con número: " . $factura->getNumero();
         }
     }

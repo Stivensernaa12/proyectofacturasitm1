@@ -1,14 +1,16 @@
 <?php
+require_once '../Control/CtrEmpresa.php'; // Ajuste la ruta según sea necesario
+
 class FrmEmpresa {
-    private CtrEmpresa $controlador;
+    private CtrEmpresa $control;
 
     public function __construct() {
-        $this->controlador = new CtrEmpresa();
+        $this->control = new CtrEmpresa();
     }
 
     public function guardar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $empresa = $this->controlador->crearEmpresa($_POST['codigo'], $_POST['nombre']);
+            $empresa = $this->control->crearEmpresa($_POST['codigo'], $_POST['nombre']);
             echo "Empresa creada: " . $empresa->getNombre();
         }
     }
