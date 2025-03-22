@@ -1,4 +1,4 @@
- <?php
+P <?php
  class ProductosPorFactura {
     private int $cantidad;
     private float $subtotal;

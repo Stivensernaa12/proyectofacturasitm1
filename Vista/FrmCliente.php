@@ -1,5 +1,5 @@
 <?php
-require_once '../Control/CtrPersona.php'; // Inluir el control
+require_once '../Control/CtrPersona.php'; // Incluir el control
 
 $control = new CtrPersona();
 
@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Obtener la lista de personas
 $personas = $control->listar();
 
-// Recorrer la lista de personas y mostrarlas
+// Mostrar resultados en formato simple
+echo "Lista de Personas:\n";
 foreach ($personas as $persona) {
-    echo "ID: " . $persona['id'] . " | ";
+    echo "id: " . $persona['id'] . " | ";
     echo "Nombre: " . $persona['nombre'] . " | ";
     echo "Apellido: " . $persona['apellido'] . " | ";
-    echo "Email: " . $persona['email'] . "<br>";
+    echo "Email: " . $persona['email'] . "\n";
 }
-// Cerrar la etiqueta PHP correctamente
 ?>
