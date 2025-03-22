@@ -1,36 +1,59 @@
 <?php
-require_once '../Control/CtrPersona.php'; // Incluir el control
 
-$control = new CtrPersona();
+require_once '../controlador/CtrCliente.php';
 
-// Verificar si se envió un formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["accion"])) {
-        switch ($_POST["accion"]) {
-            case "ingresar":
-                $nombre = trim($_POST["nombre"]);
-                $apellido = trim($_POST["apellido"]);
-                $email = trim($_POST["email"]);
-                $control->ingresar($nombre, $apellido, $email);
-                break;
-
-            case "eliminar":
-                $id = intval($_POST["id"]);
-                $control->eliminar($id);
-                break;
-        }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $codigo = $_POST['codigo'];
+    $email = $_POST['email'];
+    $nombre = $_POST['nombre'];
+    $telefono = $_POST['telefono'];
+    $credito = $_POST['credito'];
+    
+    $cliente = new CtrCliente($codigo, $email, $nombre, $telefono, $credito);
+    if ($cliente->guardar()) {
+        echo "<p>Cliente guardado correctamente.</p>";
+    } else {
+        echo "<p>Error al guardar el cliente.</p>";
     }
 }
 
-// Obtener la lista de personas
-$personas = $control->listar();
-
-// Mostrar resultados en formato simple
-echo "Lista de Personas:\n";
-foreach ($personas as $persona) {
-    echo "id: " . $persona['id'] . " | ";
-    echo "Nombre: " . $persona['nombre'] . " | ";
-    echo "Apellido: " . $persona['apellido'] . " | ";
-    echo "Email: " . $persona['email'] . "\n";
-}
+$clientes = CtrCliente::obtenerTodos();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Clientes</title>
+</head>
+<body>
+    <h2>Agregar Cliente</h2>
+    <form method="POST">
+        Código: <input type="text" name="codigo" required><br>
+        Email: <input type="email" name="email" required><br>
+        Nombre: <input type="text" name="nombre" required><br>
+        Teléfono: <input type="text" name="telefono" required><br>
+        Crédito: <input type="text" name="credito" required><br>
+        <input type="submit" value="Guardar">
+    </form>
+
+    <h2>Lista de Clientes</h2>
+    <table border="1">
+        <tr>
+            <th>Código</th>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Crédito</th>
+        </tr>
+        <?php foreach ($clientes as $c) { ?>
+            <tr>
+                <td><?php echo $c['codigo']; ?></td>
+                <td><?php echo $c['email']; ?></td>
+                <td><?php echo $c['nombre']; ?></td>
+                <td><?php echo $c['telefono']; ?></td>
+                <td><?php echo $c['credito']; ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+</body>
+</html>

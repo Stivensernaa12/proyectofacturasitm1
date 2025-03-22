@@ -2,43 +2,39 @@
 
 require_once 'Conexion.php';
 
-class Persona {
-    protected $codigo;
-    protected $email;
-    protected $nombre;
-    protected $telefono;
+class CtrEmpresa {
+    private $codigo;
+    private $nombre;
 
-    public function __construct($codigo, $email, $nombre, $telefono) {
+    public function __construct($codigo, $nombre) {
         $this->codigo = $codigo;
-        $this->email = $email;
         $this->nombre = $nombre;
-        $this->telefono = $telefono;
     }
 
     public function guardar() {
         $conexion = Conexion::conectar();
-        $sql = "INSERT INTO Persona (codigo, email, nombre, telefono) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Empresa (codigo, nombre) VALUES (?, ?)";
         $stmt = $conexion->prepare($sql);
-        return $stmt->execute([$this->codigo, $this->email, $this->nombre, $this->telefono]);
+        return $stmt->execute([$this->codigo, $this->nombre]);
     }
 
     public static function obtenerTodos() {
         $conexion = Conexion::conectar();
-        $sql = "SELECT * FROM Persona";
+        $sql = "SELECT * FROM Empresa";
         $stmt = $conexion->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function actualizar() {
         $conexion = Conexion::conectar();
-        $sql = "UPDATE Persona SET email = ?, nombre = ?, telefono = ? WHERE codigo = ?";
+        $sql = "UPDATE Empresa SET nombre = ? WHERE codigo = ?";
         $stmt = $conexion->prepare($sql);
-        return $stmt->execute([$this->email, $this->nombre, $this->telefono, $this->codigo]);
+        return $stmt->execute([$this->nombre, $this->codigo]);
     }
 
     public function eliminar() {
         $conexion = Conexion::conectar();
-        $sql = "DELETE FROM Persona WHERE codigo = ?";
+        $sql = "DELETE FROM Empresa WHERE codigo = ?";
         $stmt = $conexion->prepare($sql);
         return $stmt->execute([$this->codigo]);
     }

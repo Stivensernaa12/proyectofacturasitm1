@@ -1,12 +1,12 @@
-P<?php
+<?php
 
 require_once 'Conexion.php';
 
-class ProductosPorFactura {
-    private $numero_factura;
-    private $codigo_producto;
+class CtrProductosPorFactura {
     private $cantidad;
     private $subtotal;
+    private $numero_factura;
+    private $codigo_producto;
 
     public function __construct($numero_factura, $codigo_producto, $cantidad, $subtotal) {
         $this->numero_factura = $numero_factura;

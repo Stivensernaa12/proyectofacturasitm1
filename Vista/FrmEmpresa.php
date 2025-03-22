@@ -1,30 +1,44 @@
 <?php
-require_once '../Control/CtrEmpresa.php'; // Ajuste la ruta según sea necesario
 
-class FrmEmpresa {
-    private CtrEmpresa $control;
+require_once '../controlador/CtrEmpresa.php';
 
-    public function __construct() {
-        $this->control = new CtrEmpresa();
-    }
-
-    public function guardar() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $empresa = $this->control->crearEmpresa($_POST['codigo'], $_POST['nombre']);
-            echo "Empresa creada: " . $empresa->getNombre();
-        }
-    }
-
-    public function mostrarFormulario() {
-        echo '<form method="POST">
-                Código: <input type="text" name="codigo"><br>
-                Nombre: <input type="text" name="nombre"><br>
-                <input type="submit" value="Guardar">
-              </form>';
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $codigo = $_POST['codigo'];
+    $nombre = $_POST['nombre'];
+    
+    $empresa = new CtrEmpresa($codigo, $nombre);
+    $empresa->guardar();
+    echo "<p>Empresa guardada correctamente.</p>";
 }
 
-$vista = new FrmEmpresa();
-$vista->mostrarFormulario();
-$vista->guardar();
+$empresas = CtrEmpresa::obtenerTodos();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Empresas</title>
+</head>
+<body>
+    <h2>Agregar Empresa</h2>
+    <form method="POST">
+        Código: <input type="text" name="codigo" required><br>
+        Nombre: <input type="text" name="nombre" required><br>
+        <input type="submit" value="Guardar">
+    </form>
+
+    <h2>Lista de Empresas</h2>
+    <table border="1">
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+        </tr>
+        <?php foreach ($empresas as $e) { ?>
+            <tr>
+                <td><?php echo $e['codigo']; ?></td>
+                <td><?php echo $e['nombre']; ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+</body>
+</html>
